@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1>Tem certeza?</h1>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Deletar">
+    <a href="{% url 'stockList' %}">Cancelar</a>
+</form>
+{% endblock main %}
