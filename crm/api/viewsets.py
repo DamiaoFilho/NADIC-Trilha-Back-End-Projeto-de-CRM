@@ -10,7 +10,8 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from django.contrib.auth import login, logout, authenticate
 from django.core.exceptions import ValidationError
-
+from django.db import transaction
+from crm.tasks import get_stocks
 from rest_framework.mixins import (
     CreateModelMixin,
     ListModelMixin,
@@ -19,6 +20,12 @@ from rest_framework.mixins import (
 )
 
 class stockViewSet(viewsets.ModelViewSet):
+
+    @transaction.atomic
+    def update(self, request, *args, **kwargs):
+        get_stocks()
+        return super().update(request, *args, **kwargs)
+    
     queryset = Stock.objects.all()
     serializer_class = stockSerializer
 

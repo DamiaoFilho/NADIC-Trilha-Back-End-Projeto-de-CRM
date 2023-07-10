@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -79,8 +79,12 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'crm',
+        'USER': 'postgres',
+        'PASSWORD': '5326',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -134,3 +138,29 @@ REST_FRAMEWORK = {
 }
 
 REST_USE_JWT = True
+
+
+#CELERY
+
+# AWS Access Key
+os.environ["AWS_ACCESS_KEY_ID"] = "AKIAVCJUQJHOPNDFC3BT"
+os.environ["AWS_SECRET_ACCESS_KEY"] = "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"
+os.environ["AWS_DEFAULT_REGION"] = "us-east-2"
+
+# Celery Configuration Options
+CELERY_accept_content = ['application/json']
+CELERY_result_serializer = 'json'
+CELERY_task_serializer = 'json'
+CELERY_TASK_DEFAULT_QUEUE = 'myqueue'
+CELERY_BROKER_URL = "sqs://%s:%s@" % (os.environ.get('AWS_ACCESS_KEY_ID'), os.environ.get('AWS_SECRET_ACCESS_KEY'))
+CELERY_BROKER_TRANSPORT_OPTIONS = {
+    "region": "us-east-2",
+    'queue_name_prefix': 'django-',
+    'visibility_timeout': 7200,
+    'polling_interval': 1
+}
+# Using the database to store task state and results.
+CELERY_result_backend = None
+CELERY_TASK_ANNOTATIONS = {'*': {'default_retry_delay': 5, 'max_retries': 12}}
+task_acks_late = True
+worker_prefetch_multiplier = 1
