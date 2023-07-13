@@ -4,7 +4,7 @@
 <h1>Estoques</h1>
 <ul>
 {% for stock in object_list %}
-    <li>{{ stock.name }} - R$:{{ stock.price }} - Quantidade: {{ stock.quantity }} - <a href="{% url 'stockUpdate' stock.id %}">Editar</a> - <a href="{% url 'stockDelete' stock.id %}">Remover</a></li>
+    <li>{{ stock.name }} - R$:{{ stock.price }} - <img src="{{ stock.image.url }}" alt="" style="width: 10%; height: 10%;"> - Quantidade: {{ stock.quantity }} - <a href="{% url 'stockUpdate' stock.id %}">Editar</a> - <a href="{% url 'stockDelete' stock.id %}">Remover</a></li>
 {% empty %}
     <li>Sem estoque</li>
 {% endfor %}

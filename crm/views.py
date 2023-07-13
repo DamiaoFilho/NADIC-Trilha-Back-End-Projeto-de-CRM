@@ -14,31 +14,31 @@ class companyCreate(CreateView):
     model = Company
     fields = ['name', 'balance']
     template_name = "create.html"
-    success_url = "/index/"
+    success_url = "/"
 
 class categoryCreate(CreateView):
     model = Category
     fields = ['name']
     template_name = "create.html"
-    success_url = "/index/"
+    success_url = "/"
 
 class stockCreate(CreateView):
     model = Stock
-    fields = ['name', 'price', 'quantity', 'category', 'company']
+    fields = ["name", "price", "image", "quantity", "category", "company"]
     template_name = "create.html"
-    success_url = "/index/"
+    success_url = "/"
 
 
 class stockDelete(DeleteView):
     model = Stock
     template_name = "stock_confirm_delete.html"
-    success_url = "/list/"
+    success_url = "/"
 
 class stockUpdate(UpdateView):
     model = Stock
     fields = ['name', 'price', 'quantity']
     template_name = "edit.html"
-    success_url = "/index/"
+    success_url = "/"
 
 class stockList(ListView):
     model = Stock
