@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-tzz=qsq)%bg3he1y#9hyjob^$z3dm2u&rpc3^58w-1%1*3kw(!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["redes.damiaofilho.com.br", "3.145.19.49", "127.0.0.1"]
 
 
 # Application definition
@@ -123,10 +123,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-MEDIA_URLS = '/media/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'media')
+# STATIC_URL = 'static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# MEDIA_URLS = '/media/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
@@ -145,17 +145,13 @@ REST_USE_JWT = True
 
 #S3
 
-AWS_ACCESS_KEY_ID = ''
-AWS_SECRET_ACCESS_KEY = ''
+AWS_ACCESS_KEY_ID = 'AKIAVCJUQJHOKALFBUGR'
+AWS_SECRET_ACCESS_KEY = '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'
 AWS_STORAGE_BUCKET_NAME = 'redes-damiao'
-AWS_S3_SIGNATURE_NAME = 's3v4',
-AWS_S3_REGION_NAME = 'us-east-2'
-AWS_S3_FILE_OVERWRITE = False
-AWS_DEFAULT_ACL =  None
-AWS_S3_VERITY = True
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-
 AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+AWS_S3_OBJECT_PARAMETERS = {'CacheControl': 'max-age=86400'}
+AWS_DEFAULT_ACL = 'public-read'
+
 AWS_LOCATION = 'static'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
@@ -163,4 +159,4 @@ STATICFILES_DIRS = [
 
 STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'core.storages.MediaStore'
+DEFAULT_FILE_STORAGE = 'project.storages.MediaStore'
