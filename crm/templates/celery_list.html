@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<h1>Celery Tasks</h1>
+<ul>
+{% for task in object_list %}
+    <li>Mensagem: {{ task.message }}</li>
+    <li>Resposta: {{ task.response }}</li>
+{% empty %}
+    <li>Sem tasks</li>
+{% endfor %}
+</ul>
+{% endblock main %}

@@ -1,9 +1,13 @@
+from typing import Any
+from django.forms.models import BaseModelForm
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views.generic import *
-
+from django.db import transaction
+from .tasks import *
 from .models import *
 from .forms import *
-
+from django.shortcuts import redirect
 
 # CBVs
 
@@ -42,7 +46,23 @@ class stockUpdate(UpdateView):
 
 class stockList(ListView):
     model = Stock
-    template_name = "list.html"
+    template_name = "list.html" 
+    
+
+class CreateTaskView(CreateView):
+    model = CeleryTasks
+    fields = ['message']
+    template_name = "create.html"
+    success_url = "taskList"
+
+    def get_success_url(self) -> str:
+        task.delay(self.object.id)
+        return super().get_success_url()
+    
+
+class TaskListView(ListView):
+    model = CeleryTasks
+    template_name = "celery_list.html"
 
 
 #FBVs
