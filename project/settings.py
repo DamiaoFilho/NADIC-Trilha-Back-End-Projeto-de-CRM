@@ -164,3 +164,21 @@ MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION_MEDIA)
 
 STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 DEFAULT_FILE_STORAGE = 'project.storages.MediaStore'
+
+#SQS
+
+CELERY_accept_content = ['application/json']
+CELERY_task_serializer = 'json'
+CELERY_TASK_DEFAULT_QUEUE = 'redes.fifo'
+AWS_REGION = 'us-east-2'
+
+CELERY_BROKER_URL = f'sqs://{AWS_ACCESS_KEY_ID}:{AWS_SECRET_ACCESS_KEY}@sqs.{AWS_REGION}.amazonaws.com'
+
+CELERY_BROKER_TRANSPORT_OPTIONS = {
+    "region": AWS_REGION,
+    'queue_name_prefix': '',
+    'visibility_timeout': 7200,
+    'polling_interval': 1
+}
+
+CELERY_RESULT_BACKEND = None

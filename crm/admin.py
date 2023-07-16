@@ -4,3 +4,4 @@ from .models import *
 admin.site.register(Company)
 admin.site.register(Stock)
 admin.site.register(Category)
+admin.site.register(CeleryTasks)

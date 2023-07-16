@@ -29,3 +29,8 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.name 
+    
+
+class CeleryTasks(models.Model):
+    message = models.CharField(max_length=100)
+    response = models.CharField(max_length=100, blank=True)

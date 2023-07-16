@@ -11,5 +11,7 @@ urlpatterns = [
     path('list/', stockList.as_view(), name="stockList"),
     path('update/<pk>/', stockUpdate.as_view(), name='stockUpdate'),
     path('delete/<pk>/', stockDelete.as_view(), name='stockDelete'),
-    path('sell/', productSell, name='productSell')
+    path('sell/', productSell, name='productSell'),
+    path('createTask', CreateTaskView.as_view(), name='createTask'),
+    path('taskList', TaskListView.as_view(), name='taskList')
 ]
